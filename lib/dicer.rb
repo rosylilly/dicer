@@ -1,5 +1,5 @@
 require 'dicer/version'
+require 'dicer/context'
 
 module Dicer
-  # Your code goes here...
 end
