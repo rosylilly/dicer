@@ -1,6 +1,8 @@
 require 'securerandom'
 
 class Entity
+  include Dicer::Contextable
+
   def initialize(data)
     @id = SecureRandom.uuid
 
