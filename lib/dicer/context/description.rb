@@ -1,3 +1,5 @@
+require 'delegate'
+
 module Dicer
   class Context
     class Description
@@ -11,6 +13,29 @@ module Dicer
 
       def it_behaves_like(behavior)
         @behaviors << behavior
+      end
+
+      def delegator
+        @delegator ||= begin
+          klass = Class.new(SimpleDelegator)
+          behaviors = @behaviors
+          klass.class_eval do
+            behaviors.each do |behavior|
+              include behavior
+            end
+
+            def kind_of?(klass)
+              super || __getobj__.kind_of?(klass)
+            end
+            alias is_a? kind_of?
+
+            def class
+              __getobj__.class
+            end
+          end
+
+          klass
+        end
       end
     end
   end

@@ -17,5 +17,26 @@ describe Dicer::Context::Description do
     subject { description.behaviors }
 
     it { should have(1).behavior }
+    it { should include(Cleaner) }
+  end
+
+  describe '#delegator' do
+    subject { description.delegator }
+
+    it { should be_a(Class) }
+    it { should <= SimpleDelegator }
+
+    describe 'decorated entity' do
+      subject(:entity) { description.delegator.new(Entity.new({})) }
+
+      it { should respond_to(:clean) }
+      it { should be_kind_of(Entity) }
+
+      describe '#class' do
+        subject { entity.class }
+
+        it { should == Entity }
+      end
+    end
   end
 end
