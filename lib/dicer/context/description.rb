@@ -1,4 +1,4 @@
-require 'delegate'
+require 'dicer/delegator'
 
 module Dicer
   class Context
@@ -17,20 +17,12 @@ module Dicer
 
       def delegator
         @delegator ||= begin
-          klass = Class.new(SimpleDelegator)
+          klass = Class.new(Dicer::Delegator)
+          klass.delegate_to(@described_class)
           behaviors = @behaviors
           klass.class_eval do
             behaviors.each do |behavior|
               include behavior
-            end
-
-            def kind_of?(klass)
-              super || __getobj__.kind_of?(klass)
-            end
-            alias is_a? kind_of?
-
-            def class
-              __getobj__.class
             end
           end
 

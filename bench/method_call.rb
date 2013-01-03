@@ -1,5 +1,6 @@
 require 'bundler'
 Bundler.require(:default, :development)
+require 'delegate'
 require 'forwardable'
 
 class Example
@@ -35,7 +36,7 @@ end
 example_delegator = example_description.delegator
 
 Benchmark.ips do |bench|
-  bench.report('without Mixin') do
+  bench.report('instance method') do
     example = Example.new
     example.hi
     example.hello
@@ -53,7 +54,7 @@ Benchmark.ips do |bench|
     example.hello
   end
 
-  bench.report('with Mixin') do
+  bench.report('with #extend') do
     example = Example.new
     example.extend(ExampleMixin)
     example.hi

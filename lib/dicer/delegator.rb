@@ -1,0 +1,54 @@
+require 'forwardable'
+
+module Dicer
+  class Delegator
+    extend Forwardable
+
+    def self.except_methods
+      @except_methods ||= [
+        :__send__,
+        :object_id,
+        :respond_to?,
+        :methods,
+        :public_methods,
+        :private_methods,
+        :protected_methods,
+        :method_missing
+      ]
+    end
+
+    def self.include(behavior)
+      super(behavior)
+      self.except_methods.concat(behavior.behavior_methods)
+    end
+
+    def self.delegate_to(klass)
+      delegate_methods = klass.public_methods - self.except_methods
+      def_delegators :@delegate_object, *delegate_methods
+    end
+
+    def initialize(object)
+      @delegate_object = object
+    end
+
+    def respond_to?(name)
+      super || @delegate_object.respond_to?(name)
+    end
+
+    def methods(*args)
+      @delegate_object.mehtods(*args) | super
+    end
+
+    def private_methods(*args)
+      @delegate_object.mehtods(*args) | super
+    end
+
+    def protected_methods(*args)
+      @delegate_object.mehtods(*args) | super
+    end
+
+    def method_missing(name, *args, &block)
+      @delegate_object.send(name, *args, &block)
+    end
+  end
+end

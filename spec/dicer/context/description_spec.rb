@@ -24,7 +24,6 @@ describe Dicer::Context::Description do
     subject { description.delegator }
 
     it { should be_a(Class) }
-    it { should <= SimpleDelegator }
 
     describe 'decorated entity' do
       subject(:entity) { description.delegator.new(Entity.new({})) }
