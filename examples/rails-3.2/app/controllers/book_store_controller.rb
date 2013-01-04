@@ -6,7 +6,7 @@ class BookStoreController < ApplicationController
   end
 
   def purchase
-    set_context BookStorePurchaseContext.new
+    context BookStorePurchaseContext.new
 
     book = Book.find(params[:id])
     user = User.find_by_id(session[:user_id])

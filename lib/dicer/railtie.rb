@@ -31,12 +31,10 @@ module Dicer
       end
 
       private
-      def set_context(context)
-        Dicer::Context.current = context
-      end
-
-      def current_context
-        Dicer::Context.current
+      def context(context = nil)
+        context.present? ?
+          Dicer::Context.current = context :
+          Dicer::Context.current
       end
     end
   end
