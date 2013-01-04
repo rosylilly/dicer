@@ -1,6 +1,6 @@
 module Dicer
   module Contextable
-    def with_context(context)
+    def in_context(context)
       context.supply(self)
     end
   end

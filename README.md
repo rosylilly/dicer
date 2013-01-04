@@ -28,7 +28,7 @@ end
 purchase_context = PurchaseContext.new
 user = User.where(id: session[:user_id]).first
 book = Book.where(id: params[:id]).first
-customer = user.with_context(purchase_context)
+customer = user.in_context(purchase_context)
 
 customer.purchase(book)
 ```
