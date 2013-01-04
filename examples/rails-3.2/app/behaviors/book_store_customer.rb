@@ -2,6 +2,13 @@ module BookStoreCustomer
   include Dicer::Behavior
 
   def purchase(book)
-    books << book
+    unless books.include?(book)
+      books << book
+      @purchased = true
+    end
+  end
+
+  def purchased?
+    @purchased ||= false
   end
 end

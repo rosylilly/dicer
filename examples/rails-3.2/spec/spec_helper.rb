@@ -8,6 +8,7 @@ require 'generator_spec/test_case'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.include ResponseCodeMatchers
   config.infer_base_class_for_anonymous_controllers = false
 
   config.include GeneratorSpec::TestCase, :type => :generator, :example_group => {

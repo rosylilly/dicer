@@ -7,7 +7,7 @@ describe BookStoreController do
   describe 'GET show' do
     subject { get :show, :id => book.id }
 
-    it { should be_success }
+    it { should be_ok }
   end
 
   describe 'POST purchase' do
@@ -15,13 +15,23 @@ describe BookStoreController do
       session[:user_id] = user.id
     end
 
-    subject(:response) { post :purchase, :id => book.id }
+    subject { post :purchase, :id => book.id }
 
-    specify { response.status.should == 201 }
+    context 'when not purchased' do
+      it { should be_created }
 
-    it 'should added books' do
-      response
-      user.reload.books.should include(book)
+      it 'should added books' do
+        post :purchase, :id => book.id
+        user.reload.books.should include(book)
+      end
+    end
+
+    context 'when purchased' do
+      before do
+        user.books << book
+      end
+
+      it { should be_forbidden }
     end
   end
 end
