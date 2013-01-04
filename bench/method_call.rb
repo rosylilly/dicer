@@ -61,6 +61,13 @@ Benchmark.ips do |bench|
     example.hello
   end
 
+  bench.report('with specific method') do
+    example = Example.new
+    class << example; def hello; 1; end; end
+    example.hi
+    example.hello
+  end
+
   bench.report('with Dicer') do
     example = example_description.delegator.new(Example.new)
     example.hi

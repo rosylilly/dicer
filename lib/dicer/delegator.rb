@@ -1,9 +1,5 @@
-require 'forwardable'
-
 module Dicer
   class Delegator
-    extend Forwardable
-
     def self.make(target_class, behaviors)
       delegator = Class.new(Dicer::Delegator)
       delegator.delegate_to(target_class)
@@ -19,6 +15,7 @@ module Dicer
     def self.except_methods
       @except_methods ||= [
         :__send__,
+        :__id__,
         :object_id,
         :respond_to?,
         :methods,
@@ -39,7 +36,17 @@ module Dicer
 
     def self.delegate_to(klass)
       delegate_methods = klass.public_methods - self.except_methods
-      def_delegators :@delegate_object, *delegate_methods
+      def_delegators(klass, *delegate_methods)
+    end
+
+    def self.def_delegators(klass, *methods)
+      methods.each do |method|
+        class_eval <<-EOF
+          def #{method}(*args, &block)
+            @delegate_object.__send__(:#{method}, *args, &block)
+          end
+        EOF
+      end
     end
 
     def initialize(object)
