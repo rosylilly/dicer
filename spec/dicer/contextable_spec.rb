@@ -18,4 +18,18 @@ describe Dicer::Contextable do
       end
     end
   end
+
+  describe '#as' do
+    subject { entity.as(Cleaner) }
+
+    it { should respond_to(:clean) }
+
+    context 'with block' do
+      it do
+        entity.as(Cleaner) do |cleaner|
+          cleaner.should respond_to(:clean)
+        end
+      end
+    end
+  end
 end

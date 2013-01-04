@@ -16,18 +16,7 @@ module Dicer
       end
 
       def delegator
-        @delegator ||= begin
-          klass = Class.new(Dicer::Delegator)
-          klass.delegate_to(@described_class)
-          behaviors = @behaviors
-          klass.class_eval do
-            behaviors.each do |behavior|
-              include behavior
-            end
-          end
-
-          klass
-        end
+        @delegator ||= Dicer::Delegator.make(@described_class, @behaviors)
       end
     end
   end

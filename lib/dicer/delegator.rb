@@ -4,6 +4,18 @@ module Dicer
   class Delegator
     extend Forwardable
 
+    def self.make(target_class, behaviors)
+      delegator = Class.new(Dicer::Delegator)
+      delegator.delegate_to(target_class)
+      delegator.class_eval do
+        behaviors.each do |behavior|
+          include behavior
+        end
+      end
+
+      return delegator
+    end
+
     def self.except_methods
       @except_methods ||= [
         :__send__,
