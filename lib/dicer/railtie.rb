@@ -14,17 +14,17 @@ module Dicer
 
       # ActionController
       ActiveSupport.on_load :action_controller do |controller|
-        Dicer.setup_controller(controller)
+        Dicer.setup_action_controller(controller)
       end
 
       # ActiveRecord
       ActiveSupport.on_load :active_record do |orm|
-        Dicer.setup_orm(orm)
+        Dicer.setup_active_record(orm)
       end
     end
   end
 
-  def self.setup_controller(controller)
+  def self.setup_action_controller(controller)
     controller.class_eval do
       prepend_before_filter do
         Dicer::Context.current_controller = self
@@ -41,9 +41,25 @@ module Dicer
     end
   end
 
-  def self.setup_orm(orm)
+  def self.setup_active_record(orm)
     orm.class_eval do
       include Dicer::Contextable
+
+      # Auto #in_context
+      def self.new_with_dicer(*args, &block)
+        instance = new_without_dicer(*args, &block)
+        Dicer::Context.current.present? ? instance.in_context : instance
+      end
+
+      class << self
+        alias_method_chain :new, :dicer
+      end
+
+      def init_with_with_dicer(*args)
+        instance = init_with_without_dicer(*args)
+        Dicer::Context.current.present? ? instance.in_context : instance
+      end
+      alias_method_chain :init_with, :dicer
     end
   end
 end

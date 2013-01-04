@@ -9,7 +9,7 @@ class BookStoreController < ApplicationController
     set_context BookStorePurchaseContext.new
 
     book = Book.find(params[:id])
-    user = User.find_by_id(session[:user_id]).in_context
+    user = User.find_by_id(session[:user_id])
 
     user.purchase(book)
 

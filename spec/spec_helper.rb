@@ -3,6 +3,7 @@ require 'bundler'
 require 'rails'
 require 'action_controller'
 require 'action_controller/test_case'
+require 'active_record'
 Bundler.require(:default, :test)
 
 RSpec.configure do |config|
