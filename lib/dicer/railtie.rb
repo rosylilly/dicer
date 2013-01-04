@@ -36,6 +36,13 @@ module Dicer
           Dicer::Context.current = context :
           Dicer::Context.current
       end
+
+      def in_context(context, &block)
+        current_context = Dicer::Context.current
+        Dicer::Context.current = context
+      ensure
+        Dicer::Context.current = current_context
+      end
     end
   end
 
