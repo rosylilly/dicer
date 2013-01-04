@@ -6,5 +6,5 @@ gemspec
 group :development, :test do
   gem 'benchmark-ips', '~> 1.2.0'
   gem 'pry'
-  gem 'rails'
+  gem 'rails', :require => false
 end
