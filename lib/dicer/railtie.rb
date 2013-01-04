@@ -1,5 +1,6 @@
 require 'dicer/middleware'
 require 'dicer/railtie/context'
+require 'dicer/railtie/contextable'
 
 module Dicer
   class Railtie < ::Rails::Railtie
@@ -29,7 +30,8 @@ module Dicer
         Dicer::Context.current_controller = self
       end
 
-      def current_context=(context)
+      private
+      def set_context(context)
         Dicer::Context.current = context
       end
 
@@ -42,19 +44,6 @@ module Dicer
   def self.setup_orm(orm)
     orm.class_eval do
       include Dicer::Contextable
-
-      # Auto Context
-      def self.new_with_dicer(*args, &block)
-        if Dicer::Context.current.present?
-          new_without_dicer.in_context(Dicer::Context.current)
-        else
-          new_without_dicer(*args, &block)
-        end
-      end
-
-      class << self
-        alias_method_chain :new, :dicer
-      end
     end
   end
 end
