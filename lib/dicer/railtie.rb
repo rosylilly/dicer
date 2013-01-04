@@ -1,4 +1,5 @@
 require 'dicer/middleware'
+require 'dicer/railtie/context'
 
 module Dicer
   class Railtie < ::Rails::Railtie
@@ -9,9 +10,6 @@ module Dicer
 
       # Middleware
       app.config.middleware.use Dicer::Middleware
-
-      # Dicer::Context for Rails
-      require 'dicer/railtie/context'
 
       # ActionController
       ActiveSupport.on_load :action_controller do |controller|
