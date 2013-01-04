@@ -13,7 +13,10 @@ module Dicer
         :public_methods,
         :private_methods,
         :protected_methods,
-        :method_missing
+        :method_missing,
+        # for RSpec
+        :should,
+        :should_not
       ]
     end
 
@@ -31,7 +34,7 @@ module Dicer
       @delegate_object = object
     end
 
-    def respond_to?(name)
+    def respond_to?(name, private = false)
       super || @delegate_object.respond_to?(name)
     end
 
@@ -39,8 +42,12 @@ module Dicer
       @delegate_object.mehtods(*args) | super
     end
 
+    def public_methods(*args)
+      @delegate_object.public_methods(*args) | super
+    end
+
     def private_methods(*args)
-      @delegate_object.mehtods(*args) | super
+      @delegate_object.private_mehtods(*args) | super
     end
 
     def protected_methods(*args)
