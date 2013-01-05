@@ -54,42 +54,12 @@ module Dicer
   def self.setup_active_record(orm)
     orm.class_eval do
       include Dicer::Contextable
-
-      # Auto #in_context
-      def self.new_with_dicer(*args, &block)
-        instance = new_without_dicer(*args, &block)
-        Dicer::Context.current.present? ? instance.in_context : instance
-      end
-
-      class << self
-        alias_method_chain :new, :dicer
-      end
-
-      def init_with_with_dicer(*args)
-        instance = init_with_without_dicer(*args)
-        Dicer::Context.current.present? ? instance.in_context : instance
-      end
-      alias_method_chain :init_with, :dicer
     end
   end
 
   def self.setup_mongoid(orm)
-    orm.module_eval(<<-EOF)
+    orm.module_eval do
       include Dicer::Contextable
-
-      module ClassMethods
-        def new(*args, &block)
-          instance = allocate
-          instance.send(:initialize, *args, &block)
-          Dicer::Context.current.present? ? instance.in_context : instance
-        end
-
-        def instantiate_with_dicer(*args, &block)
-          instance = instantiate_without_dicer(*args, &block)
-          Dicer::Context.current.present? ? instance.in_context : instance
-        end
-        alias_method_chain :instantiate, :dicer
-      end
-    EOF
+    end
   end
 end
