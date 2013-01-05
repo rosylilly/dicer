@@ -15,11 +15,12 @@ RSpec.configure do |config|
     :file_path => config.escaped_path(%w[spec generators])
   }
 
-  config.before(:all) do
+  config.before(:suite) do
+    DatabaseCleaner[:mongoid].strategy = :truncation if defined?(Mongoid)
     DatabaseCleaner.start
   end
 
-  config.after(:all) do
+  config.after(:suite) do
     DatabaseCleaner.clean
   end
 end
