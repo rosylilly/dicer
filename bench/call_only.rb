@@ -63,7 +63,7 @@ Benchmark.ips do |bench|
 
   specific = Example.new
   class << specific; def hello; 1; end; end
-  bench.report('with specific method') do
+  bench.report('with singleton') do
     specific.hi
     specific.hello
   end
