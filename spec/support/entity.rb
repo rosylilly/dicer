@@ -4,7 +4,7 @@ class Entity
   include Dicer::Contextable
 
   def initialize(data)
-    @id = SecureRandom.uuid
+    @id = SecureRandom.hex
 
     data.each_pair do |key, val|
       instance_variable_set(:"@#{key}", val)

@@ -35,7 +35,7 @@ module Dicer
     end
 
     def self.delegate_to(klass)
-      delegate_methods = klass.public_methods - self.except_methods
+      delegate_methods = klass.public_methods.map(&:to_sym) - self.except_methods
       def_delegators(klass, *delegate_methods)
     end
 
