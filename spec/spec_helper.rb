@@ -4,6 +4,11 @@ require 'rails'
 require 'action_controller'
 require 'action_controller/test_case'
 require 'active_record'
+
+require 'simplecov'
+SimpleCov.add_filter('spec')
+SimpleCov.start
+
 Bundler.require(:default, :test)
 
 RSpec.configure do |config|

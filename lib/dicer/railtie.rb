@@ -1,10 +1,26 @@
 require 'dicer/middleware'
+
+require 'dicer/railtie/action_controller'
+require 'dicer/railtie/active_record'
+
 require 'dicer/railtie/context'
 require 'dicer/railtie/contextable'
 
 module Dicer
   class Railtie < ::Rails::Railtie
+    def self.generator
+      config.respond_to?(:app_generators) ? :app_generators : :generators
+    end
+
+    config.dicer = Dicer.config
+
     initializer 'dicer' do |app|
+      config.after_initialize do
+        if Dicer.config.auto_supply && !defined?(ActiveRecord)
+          puts "Dicer's auto_supply option is supporting ActiveRecord only"
+        end
+      end
+
       # Paths
       app.config.paths.add('app/contexts', :eager_laod => true)
       app.config.paths.add('app/behaviors', :eager_laod => true)
@@ -31,29 +47,13 @@ module Dicer
 
   def self.setup_action_controller(controller)
     controller.class_eval do
-      prepend_before_filter do
-        Dicer::Context.current_controller = self
-      end
-
-      private
-      def context(context = nil)
-        context.present? ?
-          Dicer::Context.current = context :
-          Dicer::Context.current
-      end
-
-      def in_context(context, &block)
-        current_context = Dicer::Context.current
-        Dicer::Context.current = context
-      ensure
-        Dicer::Context.current = current_context
-      end
+      include Dicer::ActionController
     end
   end
 
   def self.setup_active_record(orm)
     orm.class_eval do
-      include Dicer::Contextable
+      include Dicer::ActiveRecord
     end
   end
 

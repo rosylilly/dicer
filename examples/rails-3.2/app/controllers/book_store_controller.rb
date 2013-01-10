@@ -5,11 +5,12 @@ class BookStoreController < ApplicationController
     render :nothing => true
   end
 
+  context_for :purchase, BookStorePurchaseContext
   def purchase
-    context BookStorePurchaseContext.new
-
     book = Book.find(params[:id])
-    user = User.find(session[:user_id]).in_context
+    user = User.find(session[:user_id])
+
+    user = user.in_context if defined?(Mongoid)
 
     user.purchase(book)
 

@@ -8,4 +8,5 @@ group :development, :test do
   gem 'pry'
   gem 'tapp'
   gem 'rails', :require => false
+  gem 'simplecov', :require => false
 end
