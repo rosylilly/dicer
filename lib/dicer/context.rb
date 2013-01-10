@@ -3,13 +3,21 @@ require 'dicer/context/description'
 module Dicer
   class Context
     def self.descriptions
-      @descriptions ||= {}
+      @descriptions ||=
+        self < Dicer::Context ?
+          self.superclass.descriptions.dup :
+          {}
     end
 
     def self.describe(klass, &block)
       description = Description.new(klass, &block)
+      klass = description.described_class
 
-      descriptions[description.described_class] = description
+      if descriptions.has_key?(klass)
+        descriptions[klass].merge!(description)
+      else
+        descriptions[klass] = description
+      end
     end
 
     def supply(object)

@@ -1,2 +1,2 @@
-class <%= class_name %>Context < Dicer::Context
+class <%= class_name %>Context < <%= parent_class_name %>
 end

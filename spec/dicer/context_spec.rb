@@ -6,6 +6,9 @@ describe Dicer::Context do
       describe Entity do
         it_behaves_like Cleaner
       end
+
+      describe Entity do
+      end
     end
   end
 

@@ -15,6 +15,10 @@ module Dicer
         @behaviors << behavior
       end
 
+      def merge!(other)
+        @behaviors.concat(other.behaviors)
+      end
+
       def delegator
         @delegator ||= Dicer::Delegator.make(@described_class, @behaviors)
       end

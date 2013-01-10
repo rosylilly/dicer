@@ -7,6 +7,10 @@ module Rails
 
       check_class_collision :suffix => 'Context'
 
+      class_option :parent,
+        :type => :string,
+        :desc => 'The parent class for the generated context'
+
       def create_context_file
         template(
           'context.rb',
@@ -16,6 +20,12 @@ module Rails
             "#{file_name}_context.rb"
           )
         )
+      end
+
+      private
+      def parent_class_name
+        options[:parent] || defined?(ApplicationContext) ?
+          'ApplicationContext' : 'Dicer::Context'
       end
     end
   end

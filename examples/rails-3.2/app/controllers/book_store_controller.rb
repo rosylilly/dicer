@@ -12,6 +12,7 @@ class BookStoreController < ApplicationController
 
     user = user.in_context if defined?(Mongoid)
 
+    user.testable?
     user.purchase(book)
 
     if user.purchased?
