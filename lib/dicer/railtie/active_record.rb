@@ -12,18 +12,18 @@ module Dicer
         end
       end
 
-      class << self
-        alias_method_chain :new, :dicer
-      end
-
-      def init_with_with_dicer(coder)
+      def self.instantiate_with_dicer(*args)
         if Dicer.config.auto_supply && Dicer::Context.current.present?
-          init_with_without_dicer(coder).in_context
+          instantiate_without_dicer(*args).in_context
         else
-          init_with_without_dicer(coder)
+          instantiate_without_dicer(*args)
         end
       end
-      alias_method_chain :init_with, :dicer
+
+      class << self
+        alias_method_chain :new, :dicer
+        alias_method_chain :instantiate, :dicer
+      end
     end
   end
 end
