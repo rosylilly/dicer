@@ -9,6 +9,9 @@ module Dicer
         default_context = self.class.default_contexts[params[:action].to_sym]
         Dicer::Context.current = default_context.new if default_context.present?
       end
+
+      helper_method :context
+      helper_method :in_context
     end
 
     module ClassMethods
@@ -34,7 +37,9 @@ module Dicer
 
     def in_context(context, &block)
       current_context = Dicer::Context.current
-      Dicer::Context.current = context
+      Dicer::Context.current = context.is_a?(Class) ? context.new : context
+
+      block.call(Dicer::Context.current)
     ensure
       Dicer::Context.current = current_context
     end
