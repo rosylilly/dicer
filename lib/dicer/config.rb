@@ -5,7 +5,7 @@ module Dicer
     attr_accessor :auto_supply
 
     def initialize
-      @auto_supply = false
+      @auto_supply = true
     end
   end
 
