@@ -1,6 +1,6 @@
 # Dicer
 
-![](https://raw.github.com/rosylilly/dicer/master/resource/dicer_logo.png) useful DCI for Ruby.
+useful DCI for Rails.
 
 for example:
 

@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Dicer::VERSION
   gem.authors       = ['Sho Kusano']
   gem.email         = ['rosylilly@aduca.org']
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{useful DCI for Rails}
+  gem.summary       = %q{useful DCI for Rails}
   gem.homepage      = ''
   gem.license       = 'MIT'
 
