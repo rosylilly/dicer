@@ -22,6 +22,8 @@ module Rails
         )
       end
 
+      hook_for :test_framework
+
       private
       def parent_class_name
         options[:parent] || defined?(ApplicationContext) ?

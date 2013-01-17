@@ -15,6 +15,8 @@ module Rails
           )
         )
       end
+
+      hook_for :test_framework
     end
   end
 end
