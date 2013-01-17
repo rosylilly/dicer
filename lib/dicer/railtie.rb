@@ -19,6 +19,10 @@ module Dicer
         if Dicer.config.auto_supply && !defined?(ActiveRecord)
           puts "Dicer's auto_supply option is supporting ActiveRecord only"
         end
+
+        unless Rails.env.production?
+          require 'dicer/rspec' if defined?(RSpec)
+        end
       end
 
       # Paths
