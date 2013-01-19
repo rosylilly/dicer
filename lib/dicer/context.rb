@@ -20,9 +20,13 @@ module Dicer
       end
     end
 
-    def supply(object)
+    def supply(object, role = nil)
       description = self.class.descriptions[object.class]
-      delegator = description ? description.delegator : nil
+      delegator = description ?
+        (role.nil? ?
+          description.delegator :
+          description.delegator_for(role)) :
+        nil
 
       delegator ? delegator.new(object) : object
     end

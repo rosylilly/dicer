@@ -10,6 +10,14 @@ module Dicer
       end
     end
 
+    def as(role, context, &block)
+      if block.nil?
+        context.supply(self, role)
+      else
+        block.call(context.supply(self, role))
+      end
+    end
+
     def behaves_like(*behaviors, &block)
       delegator = Dicer::Delegator.make(self.class, behaviors)
 
