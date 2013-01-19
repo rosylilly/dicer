@@ -5,7 +5,7 @@ module Dicer
 
       included do
         subject do
-          extend_to.as(described_class)
+          extend_to.behaves_like(described_class)
         end
       end
 

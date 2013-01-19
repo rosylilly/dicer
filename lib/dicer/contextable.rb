@@ -10,7 +10,7 @@ module Dicer
       end
     end
 
-    def as(*behaviors, &block)
+    def behaves_like(*behaviors, &block)
       delegator = Dicer::Delegator.make(self.class, behaviors)
 
       block.nil? ? delegator.new(self) : block.call(delegator.new(self))
