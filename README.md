@@ -70,7 +70,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Read [Getting Started](https://github.com/rosylilly/dicer/wiki/Getting-started)
 
 ## Contributing
 
