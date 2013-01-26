@@ -48,7 +48,7 @@ module Dicer
 
         @delegators[role] ||= Dicer::Delegator.make(
           @described_class,
-          @behaviors[role] | @behaviors.default
+          @behaviors[role]
         )
       end
     end
