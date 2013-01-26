@@ -4,7 +4,7 @@ module Dicer
       extend ActiveSupport::Concern
 
       included do
-        subject do
+        subject(:extended) do
           extend_to.behaves_like(described_class)
         end
       end
