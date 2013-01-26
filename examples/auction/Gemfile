@@ -23,3 +23,7 @@ group :development, :test do
   gem 'forgery'
   gem 'timecop'
 end
+
+group :development do
+  gem 'pry-rails'
+end
