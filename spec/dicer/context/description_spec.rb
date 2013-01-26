@@ -5,8 +5,8 @@ describe Dicer::Context::Description do
     Dicer::Context::Description.new(Entity) do
       it_behaves_like Cleaner
 
-      role :cleaner do
-        it_behaves_like Cleaner
+      role :other do
+        it_behaves_like OtherBehavior
       end
     end
   end
@@ -28,10 +28,10 @@ describe Dicer::Context::Description do
       it { should include(Cleaner) }
     end
 
-    describe '[:cleaner]' do
-      subject { description.behaviors[:cleaner] }
+    describe '[:other]' do
+      subject { description.behaviors[:other] }
 
-      it { should include(Cleaner) }
+      it { should include(OtherBehavior) }
     end
   end
 

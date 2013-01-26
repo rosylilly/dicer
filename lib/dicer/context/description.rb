@@ -46,10 +46,14 @@ module Dicer
       def delegator_for(role)
         role = role.to_s.to_sym
 
-        @delegators[role] ||= Dicer::Delegator.make(
-          @described_class,
-          @behaviors[role]
-        )
+        if @delegators.has_key?(role)
+          @delegators[role]
+        else
+          @delegators[role] = Dicer::Delegator.make(
+            @described_class,
+            @behaviors[role]
+          )
+        end
       end
     end
   end

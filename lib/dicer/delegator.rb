@@ -4,9 +4,13 @@ module Dicer
       delegator = Class.new(Dicer::Delegator)
       delegator.delegate_to(target_class)
       delegator.class_eval do
+        include Dicer::Contextable
+
         behaviors.each do |behavior|
           include behavior
         end
+
+        @@behaviors = behaviors
       end
 
       return delegator
@@ -19,11 +23,15 @@ module Dicer
         :object_id,
         :respond_to?,
         :pure,
+        :in_context,
+        :as,
+        :behaves_like,
         :methods,
         :public_methods,
         :private_methods,
         :protected_methods,
         :method_missing,
+        :behaviors,
         # for RSpec
         :should,
         :should_not
@@ -32,7 +40,10 @@ module Dicer
 
     def self.include(behavior)
       super(behavior)
-      self.except_methods.concat(behavior.behavior_methods)
+
+      if behavior <= Dicer::Behavior
+        self.except_methods.concat(behavior.behavior_methods)
+      end
     end
 
     def self.delegate_to(klass)
@@ -81,5 +92,15 @@ module Dicer
     def method_missing(name, *args, &block)
       @delegate_object.send(name, *args, &block)
     end
+
+    def behaviors
+      if pure.respond_to?(:behaviors)
+        pure.behaviors | @@behaviors
+      else
+        @@behaviors
+      end
+    end
+
+    alias_method :__class__, :class
   end
 end
