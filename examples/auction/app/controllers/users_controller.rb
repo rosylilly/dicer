@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def show
+    @user = User.find(params[:id].to_i).decorate
+  end
+
   def create
     @user = User.new(params[:user])
     @user.password = params[:password]
