@@ -31,4 +31,18 @@ describe Dicer::Delegator do
 
     it { should be_true }
   end
+
+  describe '#pure' do
+    subject(:pure) { delegated.pure }
+
+    it { should == delegated }
+    it { should == entity }
+
+    describe '#object_id' do
+      subject { pure.object_id }
+
+      it { should_not == delegated.object_id }
+      it { should == entity.object_id }
+    end
+  end
 end

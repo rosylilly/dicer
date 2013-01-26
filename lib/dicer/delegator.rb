@@ -18,6 +18,7 @@ module Dicer
         :__id__,
         :object_id,
         :respond_to?,
+        :pure,
         :methods,
         :public_methods,
         :private_methods,
@@ -51,6 +52,10 @@ module Dicer
 
     def initialize(object)
       @delegate_object = object
+    end
+
+    def pure
+      @delegate_object
     end
 
     def respond_to?(name, private = false)
