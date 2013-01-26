@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130120053852) do
+ActiveRecord::Schema.define(:version => 20130126161059) do
+
+  create_table "bids", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "item_id"
+    t.integer  "price"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "bids", ["user_id", "item_id"], :name => "index_bids_on_user_id_and_item_id", :unique => true
 
   create_table "items", :force => true do |t|
     t.string   "title",                        :null => false
