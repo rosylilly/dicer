@@ -1,0 +1,7 @@
+{
+  "vendor": {
+    "dependencies": {
+      "jquery": "git://github.com/components/jquery.git#~1.9.x"
+    }
+  }
+}
