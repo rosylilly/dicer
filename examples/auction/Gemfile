@@ -6,6 +6,7 @@ gem 'dicer', path: '../..'
 gem 'sqlite3'
 
 gem 'bcrypt-ruby', '~> 3.0.0', require: 'bcrypt'
+gem 'slim-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
