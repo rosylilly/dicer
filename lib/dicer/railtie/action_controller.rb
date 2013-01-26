@@ -23,7 +23,10 @@ module Dicer
 
       def default_contexts
         @default_contexts ||= {}.tap do |hash|
-          hash.default = ApplicationContext if defined?(ApplicationContext)
+          begin
+            hash.default = ::ApplicationContext
+          rescue NameError
+          end
         end
       end
     end
