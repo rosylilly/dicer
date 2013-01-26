@@ -1,0 +1,18 @@
+- content_for :side do
+  .well
+    | Password reminder is not implemented
+
+h1 Sign In
+
+= form_tag log_in_path, class: 'form-horizontal' do
+  .control-group
+    label.control-label for='user_email' E-Mail
+    .controls
+      = text_field_tag :email, params[:email], class: 'input-block-level'
+  .control-group
+    label.control-label for='user_password' Password
+    .controls
+      = password_field_tag :password, '', class: 'input-block-level'
+  .form-actions
+    = submit_tag 'Sign In', class: 'btn btn-primary'
+
