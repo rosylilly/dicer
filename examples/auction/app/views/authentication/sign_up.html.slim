@@ -5,17 +5,28 @@
 h1 Sign In
 
 = form_for @user, html: { class: 'form-horizontal' } do |f|
-  .control-group
+  - if @user.errors.present?
+    .alert.alert-error
+      h4.alert-heading
+        #{pluralize(@user.errors.count, "error")} prohibited this user from being saved:
+      ul
+        - @user.errors.full_messages.each do |message|
+          li= message
+  .control-group class="#{@user.errors[:name].empty? ? '' : 'error'}"
     label.control-label for='user_name' Name
     .controls
       = f.text_field :name, class: 'input-block-level'
-  .control-group
+  .control-group class="#{@user.errors[:email].empty? ? '' : 'error'}"
     label.control-label for='user_email' E-Mail
     .controls
       = f.text_field :email, class: 'input-block-level'
-  .control-group
+  .control-group class="#{@user.errors[:password].empty? ? '' : 'error'}"
     label.control-label for='user_password' Password
     .controls
       = password_field_tag :password, '', class: 'input-block-level'
+  .control-group class="#{@user.errors[:password_confirmation].empty? ? '' : 'error'}"
+    label.control-label for='user_password' Password(Confirm)
+    .controls
+      = password_field_tag :password_confirmation, '', class: 'input-block-level'
   .form-actions
     = submit_tag 'Sign In', class: 'btn btn-primary'

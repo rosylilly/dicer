@@ -6,5 +6,6 @@ FactoryGirl.define do
     email { Forgery::Internet.email_address }
     assets 0
     password { Forgery::Basic.password }
+    password_confirmation {|u| u.password }
   end
 end
