@@ -23,5 +23,12 @@ html
                 li= link_to 'Sign In', sign_in_path
                 li= link_to 'Sign Up', sign_up_path
 
-    .container
-      = yield
+    #main.container
+      - if content_for?(:side)
+        .row
+          .span8
+            = yield
+          .span4
+            = yield :side
+      - else
+        = yield

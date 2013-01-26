@@ -1,0 +1,21 @@
+- content_for :side do
+  .well
+    = link_to 'You already have account?', sign_in_path
+
+h1 Sign In
+
+= form_for @user, html: { class: 'form-horizontal' } do |f|
+  .control-group
+    label.control-label for='user_name' Name
+    .controls
+      = f.text_field :name, class: 'input-block-level'
+  .control-group
+    label.control-label for='user_email' E-Mail
+    .controls
+      = f.text_field :email, class: 'input-block-level'
+  .control-group
+    label.control-label for='user_password' Password
+    .controls
+      = password_field_tag :password, '', class: 'input-block-level'
+  .form-actions
+    = submit_tag 'Sign In', class: 'btn btn-primary'

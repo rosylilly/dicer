@@ -12,4 +12,15 @@
  *= require print
  *= require_self
  */
+@import 'compass/css3';
 @import 'compass_twitter_bootstrap';
+
+.input-block-level {
+  @include box-sizing(border-box);
+  width: 100%;
+  min-height: 30px;
+}
+
+#main {
+  padding-top: 30px;
+}
