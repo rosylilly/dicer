@@ -15,6 +15,12 @@
 @import 'compass/css3';
 @import 'compass_twitter_bootstrap';
 
+.emoji {
+  width: 1em;
+  height: 1em;
+  vertical-align: baseline;
+}
+
 .input-block-level {
   @include box-sizing(border-box);
   width: 100%;

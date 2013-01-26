@@ -8,4 +8,12 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new
   end
+
+  def create
+    @item = current_user.items.create!(params[:item])
+
+    redirect_to item_path(@item)
+  rescue Activrecord::RecordInvalid
+    render :new
+  end
 end

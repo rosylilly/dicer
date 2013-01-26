@@ -9,6 +9,7 @@ gem 'bcrypt-ruby', '~> 3.0.0', require: 'bcrypt'
 gem 'slim-rails'
 
 gem 'draper'
+gem 'github-markdown'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

@@ -17,3 +17,5 @@ h1 #{item.new_record? ? 'New' : 'Edit'} Item
     label.control-label for='item_description' Description
     .controls
       = f.text_area :description, class: 'input-block-level'
+  .form-actions
+    = submit_tag item.new_record? ? 'create' : 'update', class: 'btn btn-primary'
