@@ -19,6 +19,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 
   gem 'bower-rails'
+  gem 'gemoji'
 end
 
 group :development, :test do
