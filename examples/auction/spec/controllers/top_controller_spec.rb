@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 describe TopController do
-
   describe "GET 'top'" do
-    it "returns http success" do
-      get 'top'
-      response.should be_success
-    end
-  end
+    subject { get :top }
 
+    it { should be_success }
+    it { should render_template(:top) }
+  end
 end
