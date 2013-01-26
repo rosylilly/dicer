@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessible :assets, :name, :email
 
+  has_many :items, foreign_key: :seller_id, inverse_of: :seller
+
   validates_presence_of :name
   validates_presence_of :email
   validates_uniqueness_of :email

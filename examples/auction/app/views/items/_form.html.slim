@@ -1,0 +1,19 @@
+h1 #{item.new_record? ? 'New' : 'Edit'} Item
+
+= form_for item, html: { class: 'form-horizontal' } do |f|
+  .control-group
+    label.control-label for='item_tile' Title
+    .controls
+      = f.text_field :title, class: 'input-block-level'
+  .control-group
+    label.control-label for='item_bottom_price' Bottom Price
+    .controls
+      = f.number_field :bottom_price, class: 'input-block-level'
+  .control-group
+    label.control-label for='item_period_at' Period at
+    .controls
+      = f.datetime_select :period_at, {}, { class: 'span2' }
+  .control-group
+    label.control-label for='item_description' Description
+    .controls
+      = f.text_area :description, class: 'input-block-level'

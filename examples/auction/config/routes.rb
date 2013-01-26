@@ -7,4 +7,6 @@ Auction::Application.routes.draw do
   get 'sign_out' => 'authentication#sign_out'
 
   resources :users, only: [:show, :create]
+
+  resources :items
 end

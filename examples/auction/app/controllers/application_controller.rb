@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
     render nothing: true, status: 404
   end
 
+  rescue_from Auction::RequireLogin do
+    render nothing: true, status: 403
+  end
+
   def logined?
     context.logined?
   end
@@ -16,4 +20,9 @@ class ApplicationController < ActionController::Base
   end
   private :current_user
   helper_method :current_user
+
+  def require_login!
+    raise Auction::RequireLogin unless logined?
+  end
+  private :require_login!
 end
